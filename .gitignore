@@ -1,0 +1,17 @@
+### IDE ####
+.vscode/
+.idea/
+
+### Generic ###
+coverage/
+
+### Golang ###
+vendor/
+
+### Node ###
+dist/
+bower_components/
+node_modules/
+build/Release
+.eslintcache
+.stylelintcache
