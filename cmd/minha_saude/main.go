@@ -7,9 +7,10 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/laridtm/minha_saude/internal/controller"
 	"github.com/laridtm/minha_saude/internal/env"
-	"github.com/laridtm/minha_saude/internal/http"
 	"github.com/laridtm/minha_saude/internal/repository/mongo"
+	"github.com/laridtm/minha_saude/internal/services"
 )
 
 func main() {
@@ -27,8 +28,13 @@ func main() {
 		}
 	}()
 
-	handler := http.NewHandler()
-	server := http.NewServer("8080", handler)
+	database := mongoClient.Database("minha_saude")
+
+	profileRepository := mongo.NewProfileRepository(database)
+	profileService := services.NewProfileService(profileRepository)
+
+	handler := controller.NewHandler(profileService)
+	server := controller.NewServer("8080", handler)
 	server.Start()
 
 	stopChan := make(chan os.Signal, 1)
