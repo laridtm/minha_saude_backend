@@ -33,7 +33,10 @@ func main() {
 	profileRepository := mongo.NewProfileRepository(database)
 	profileService := services.NewProfileService(profileRepository)
 
-	handler := controller.NewHandler(profileService)
+	historyRepository := mongo.NewHistoryRepository(database)
+	historyService := services.NewHistoryService(historyRepository)
+
+	handler := controller.NewHandler(profileService, historyService)
 	server := controller.NewServer("8080", handler)
 	server.Start()
 

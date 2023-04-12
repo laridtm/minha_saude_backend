@@ -13,7 +13,7 @@ func (h *handler) CreateProfile(c *gin.Context) {
 
 	err := c.BindJSON(&profile)
 	if err != nil {
-		c.AbortWithError(http.StatusBadRequest, err)
+		h.abortWithError(c, http.StatusBadRequest, err)
 		return
 	}
 
@@ -22,9 +22,9 @@ func (h *handler) CreateProfile(c *gin.Context) {
 	err = h.profileService.CreateProfile(profile)
 	if err != nil {
 		log.Println(err.Error())
-		c.AbortWithError(http.StatusBadRequest, err)
+		h.abortWithError(c, http.StatusBadRequest, err)
 		return
 	}
 
-	c.String(http.StatusOK, "Profile created")
+	c.String(http.StatusCreated, "Profile created")
 }
