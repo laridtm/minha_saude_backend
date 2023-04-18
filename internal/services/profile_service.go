@@ -34,3 +34,7 @@ func (ps *ProfileService) CreateProfile(profile model.Profile) error {
 
 	return ps.repository.Insert(profile)
 }
+
+func (ps *ProfileService) GetProfile(userId string) (*model.Profile, error) {
+	return ps.repository.Find(userId)
+}

@@ -1,8 +1,10 @@
 package controller
 
 import (
+	"errors"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/laridtm/minha_saude/internal/model"
@@ -21,10 +23,23 @@ func (h *handler) CreateProfile(c *gin.Context) {
 
 	err = h.profileService.CreateProfile(profile)
 	if err != nil {
-		log.Println(err.Error())
 		h.abortWithError(c, http.StatusBadRequest, err)
 		return
 	}
 
 	c.String(http.StatusCreated, "Profile created")
+}
+
+func (h *handler) GetProfile(c *gin.Context) {
+	userId := c.Param("user")
+	if strings.TrimSpace(userId) == "" {
+		h.abortWithError(c, http.StatusBadRequest, errors.New("missing user param"))
+	}
+
+	profile, err := h.profileService.GetProfile(userId)
+	if err != nil {
+		h.abortWithError(c, http.StatusInternalServerError, err)
+	}
+
+	c.JSON(http.StatusOK, profile)
 }

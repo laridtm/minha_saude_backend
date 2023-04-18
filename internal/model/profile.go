@@ -1,13 +1,13 @@
 package model
 
 type Profile struct {
-	FullName       string
-	BirthDate      string
-	CPF            string
-	PhoneNumber    string
-	Address        string
-	MaritalStatus  string
-	BloodType      string
-	EmergencyPhone string
-	Allergies      string
+	FullName       string `json:"fullName"`
+	BirthDate      string `json:"birthDate"`
+	CPF            string `json:"cpf"`
+	PhoneNumber    string `json:"phoneNumber"`
+	Address        string `json:"address"`
+	MaritalStatus  string `json:"maritalStatus"`
+	BloodType      string `json:"bloodType"`
+	EmergencyPhone string `json:"emergencyPhone"`
+	Allergies      string `json:"allergies"`
 }

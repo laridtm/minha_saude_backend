@@ -29,6 +29,7 @@ func NewHandler(
 
 	engine.GET("/ping", h.Ping)
 	engine.POST("/profile", h.CreateProfile)
+	engine.GET("/profile/:user", h.GetProfile)
 
 	engine.POST("/medical-record/:user", h.CreateMedicalRecord)
 	engine.GET("/medical-record/:user", h.ListAllMedicalRecords)
