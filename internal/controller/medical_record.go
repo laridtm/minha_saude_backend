@@ -88,5 +88,5 @@ func (h *handler) RemoveMedicalRecord(c *gin.Context) {
 		h.abortWithError(c, http.StatusInternalServerError, err)
 	}
 
-	c.String(http.StatusCreated, "Record removed")
+	c.String(http.StatusOK, "Record removed")
 }

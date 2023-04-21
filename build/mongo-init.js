@@ -15,6 +15,37 @@ db.profile.insertMany([
     }
 ])
 
+db.reminders.insertMany([
+    {
+        "_id": "6442b054cdb79df5d192d547",
+        "name": "Remédio Pressão",
+        "hour": "12:00",
+        "userid": "00897314921",
+        "type": "everyDay"
+    },
+    {
+        "_id": "6442b11831249fbe90ba9de5",
+        "name": "Consulta Cardio",
+        "hour": "14:00",
+        "userid": "00897314921",
+        "type": "once"
+    },
+    {
+        "_id": "6442b11931249fbe90ba9de7",
+        "name": "Remédio Gastrite",
+        "hour": "21:00",
+        "userid": "00897314921",
+        "type": "everyDay"
+    },
+    {
+        "_id": "6442b11a31249fbe90ba9de8",
+        "name": "Vitaminas",
+        "hour": "08:30",
+        "userid": "00897314921",
+        "type": "weekends"
+    },
+])
+
 db.records.insertMany([
     {
         "_id": "6435fd7aa0683320460d5dbc",

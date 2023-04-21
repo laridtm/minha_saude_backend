@@ -36,7 +36,10 @@ func main() {
 	historyRepository := mongo.NewHistoryRepository(database)
 	historyService := services.NewHistoryService(historyRepository)
 
-	handler := controller.NewHandler(profileService, historyService)
+	reminderRepository := mongo.NewReminderRepository(database)
+	reminderService := services.NewReminderService(reminderRepository)
+
+	handler := controller.NewHandler(profileService, historyService, reminderService)
 	server := controller.NewServer("8080", handler)
 	server.Start()
 
