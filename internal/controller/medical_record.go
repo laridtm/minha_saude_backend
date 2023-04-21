@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/laridtm/minha_saude/internal/model"
@@ -74,7 +75,7 @@ func (h *handler) ListAllMedicalRecords(c *gin.Context) {
 	filterType := c.Query("filter")
 	if strings.TrimSpace(filterType) != "" {
 		if err := model.MedicalRecordType(filterType).Validate(); err != nil {
-			h.abortWithError(c, http.StatusBadRequest, errors.New("filter invalid"))
+			h.abortWithError(c, http.StatusBadRequest, errors.New("filter query paramter invalid"))
 		}
 		filter.Fields["type"] = filterType
 	}
@@ -83,9 +84,21 @@ func (h *handler) ListAllMedicalRecords(c *gin.Context) {
 	if strings.TrimSpace(size) != "" {
 		intSize, err := strconv.Atoi(size)
 		if err != nil {
-			h.abortWithError(c, http.StatusBadRequest, errors.New("size invalid"))
+			h.abortWithError(c, http.StatusBadRequest, errors.New("size query paramter invalid"))
 		}
 		filter.Size = intSize
+	}
+
+	recent := c.Query("recent")
+	if strings.TrimSpace(recent) != "" {
+		recentBool, err := strconv.ParseBool(recent)
+		if err != nil {
+			h.abortWithError(c, http.StatusBadRequest, errors.New("recent query paramter invalid"))
+		}
+		if recentBool {
+			now := time.Now().UTC()
+			filter.FromDate = &now
+		}
 	}
 
 	records, err := h.historyService.GetAll(userId, filter)

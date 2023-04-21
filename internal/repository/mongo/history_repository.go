@@ -55,6 +55,10 @@ func (hr *HistoryRepository) FindAll(userId string, filter *model.Filter) ([]mod
 		where[k] = v
 	}
 
+	if filter.FromDate != nil {
+		where["date"] = bson.M{"$gte": filter.FromDate}
+	}
+
 	cursor, err := hr.collection.Find(context.Background(), where, opts)
 	if err != nil {
 		return nil, err
