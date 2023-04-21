@@ -45,7 +45,7 @@ func (hr *HistoryRepository) Update(recordId string, record model.MedicalRecord)
 func (hr *HistoryRepository) FindAll(userId string, filter *model.Filter) ([]model.MedicalRecord, error) {
 	opts := options.Find()
 
-	if filter.Size != 0 {
+	if filter.Size > 0 {
 		opts.SetLimit(int64(filter.Size))
 	}
 

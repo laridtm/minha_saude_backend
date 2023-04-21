@@ -8,6 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type ReminderRepository struct {
@@ -41,10 +42,15 @@ func (rr *ReminderRepository) Update(reminderId string, reminder model.Reminder)
 	return err
 }
 
-func (rr *ReminderRepository) FindAll(userId string) ([]model.Reminder, error) {
+func (rr *ReminderRepository) FindAll(userId string, filter *model.Filter) ([]model.Reminder, error) {
+	opts := options.Find()
+	if filter.Size > 0 {
+		opts.SetLimit(int64(filter.Size))
+	}
+
 	where := bson.M{"userId": userId}
 
-	cursor, err := rr.collection.Find(context.Background(), where)
+	cursor, err := rr.collection.Find(context.Background(), where, opts)
 	if err != nil {
 		return nil, err
 	}

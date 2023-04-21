@@ -3,6 +3,7 @@ package controller
 import (
 	"errors"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -40,7 +41,17 @@ func (h *handler) ListAllReminders(c *gin.Context) {
 		h.abortWithError(c, http.StatusBadRequest, errors.New("missing user param"))
 	}
 
-	reminders, err := h.reminderService.GetAll(userId)
+	filter := model.NewFilter()
+	size := c.Query("size")
+	if strings.TrimSpace(size) != "" {
+		intSize, err := strconv.Atoi(size)
+		if err != nil {
+			h.abortWithError(c, http.StatusBadRequest, errors.New("size query paramter invalid"))
+		}
+		filter.Size = intSize
+	}
+
+	reminders, err := h.reminderService.GetAll(userId, filter)
 	if err != nil {
 		h.abortWithError(c, http.StatusInternalServerError, err)
 	}

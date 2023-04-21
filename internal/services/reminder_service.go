@@ -23,8 +23,8 @@ func (rs *ReminderService) CreateReminder(reminder model.Reminder) error {
 	return rs.repository.Insert(reminder)
 }
 
-func (rs *ReminderService) GetAll(userId string) ([]model.Reminder, error) {
-	return rs.repository.FindAll(userId)
+func (rs *ReminderService) GetAll(userId string, filter *model.Filter) ([]model.Reminder, error) {
+	return rs.repository.FindAll(userId, filter)
 }
 
 func (rs *ReminderService) UpdateReminder(reminderId string, reminder model.Reminder) error {
