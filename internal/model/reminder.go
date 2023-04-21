@@ -13,10 +13,10 @@ const (
 
 type Reminder struct {
 	ID     string       `json:"id" bson:"_id"`
-	Name   string       `json:"name"`
-	Time   string       `json:"time"`
-	UserId string       `json:"-"`
-	Type   ReminderType `json:"type"`
+	Name   string       `json:"name" bson:"name"`
+	Time   string       `json:"time" bson:"time"`
+	UserId string       `json:"-" bson:"userId"`
+	Type   ReminderType `json:"type" bson:"type"`
 }
 
 func (rt ReminderType) Validate() error {

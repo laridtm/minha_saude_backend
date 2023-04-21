@@ -15,13 +15,13 @@ const (
 
 type MedicalRecord struct {
 	ID           string            `json:"id" bson:"_id"`
-	Date         time.Time         `json:"date"`
-	Hospital     string            `json:"hospital"`
-	Professional string            `json:"professional"`
-	Name         string            `json:"name"`
-	Observation  string            `json:"observation"`
-	UserId       string            `json:"-"`
-	Type         MedicalRecordType `json:"type"`
+	Date         time.Time         `json:"date" bson:"date"`
+	Hospital     string            `json:"hospital" bson:"hospital"`
+	Professional string            `json:"professional" bson:"professional"`
+	Name         string            `json:"name" bson:"name"`
+	Observation  string            `json:"observation" bson:"observation"`
+	UserId       string            `json:"-" bson:"userId"`
+	Type         MedicalRecordType `json:"type" bson:"type"`
 }
 
 func (mrt MedicalRecordType) Validate() error {

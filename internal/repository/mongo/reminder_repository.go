@@ -42,7 +42,7 @@ func (rr *ReminderRepository) Update(reminderId string, reminder model.Reminder)
 }
 
 func (rr *ReminderRepository) FindAll(userId string) ([]model.Reminder, error) {
-	where := bson.M{"userid": userId}
+	where := bson.M{"userId": userId}
 
 	cursor, err := rr.collection.Find(context.Background(), where)
 	if err != nil {

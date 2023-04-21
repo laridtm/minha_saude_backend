@@ -42,10 +42,10 @@ func (hr *HistoryRepository) Update(recordId string, record model.MedicalRecord)
 }
 
 func (hr *HistoryRepository) FindAll(userId string, filter *model.MedicalRecordType) ([]model.MedicalRecord, error) {
-	where := bson.M{"userid": userId}
+	where := bson.M{"userId": userId}
 
 	if filter != nil {
-		where["Type"] = string(*filter)
+		where["type"] = string(*filter)
 	}
 
 	cursor, err := hr.collection.Find(context.Background(), where)
