@@ -69,7 +69,17 @@ func (h *handler) ListAllMedicalRecords(c *gin.Context) {
 		h.abortWithError(c, http.StatusBadRequest, errors.New("missing user param"))
 	}
 
-	records, err := h.historyService.GetAll(userId)
+	var medicalRecordTypeFilter *model.MedicalRecordType
+	filter := c.Query("filter")
+	if strings.TrimSpace(filter) != "" {
+		filterType := model.MedicalRecordType(filter)
+		if err := filterType.Validate(); err != nil {
+			h.abortWithError(c, http.StatusBadRequest, errors.New("filter invalid"))
+		}
+		medicalRecordTypeFilter = &filterType
+	}
+
+	records, err := h.historyService.GetAll(userId, medicalRecordTypeFilter)
 	if err != nil {
 		h.abortWithError(c, http.StatusInternalServerError, err)
 	}

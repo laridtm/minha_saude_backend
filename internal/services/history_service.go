@@ -23,8 +23,8 @@ func (hs *HistoryService) CreateRecord(record model.MedicalRecord) error {
 	return hs.repository.Insert(record)
 }
 
-func (hs *HistoryService) GetAll(userId string) ([]model.MedicalRecord, error) {
-	return hs.repository.FindAll(userId)
+func (hs *HistoryService) GetAll(userId string, filter *model.MedicalRecordType) ([]model.MedicalRecord, error) {
+	return hs.repository.FindAll(userId, filter)
 }
 
 func (hs *HistoryService) UpdateRecord(recordId string, record model.MedicalRecord) error {
