@@ -8,6 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type HistoryRepository struct {
@@ -41,14 +42,20 @@ func (hr *HistoryRepository) Update(recordId string, record model.MedicalRecord)
 	return err
 }
 
-func (hr *HistoryRepository) FindAll(userId string, filter *model.MedicalRecordType) ([]model.MedicalRecord, error) {
-	where := bson.M{"userId": userId}
+func (hr *HistoryRepository) FindAll(userId string, filter *model.Filter) ([]model.MedicalRecord, error) {
+	opts := options.Find()
 
-	if filter != nil {
-		where["type"] = string(*filter)
+	if filter.Size != 0 {
+		opts.SetLimit(int64(filter.Size))
 	}
 
-	cursor, err := hr.collection.Find(context.Background(), where)
+	where := bson.M{"userId": userId}
+
+	for k, v := range filter.Fields {
+		where[k] = v
+	}
+
+	cursor, err := hr.collection.Find(context.Background(), where, opts)
 	if err != nil {
 		return nil, err
 	}

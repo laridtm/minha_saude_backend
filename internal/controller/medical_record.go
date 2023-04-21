@@ -3,6 +3,7 @@ package controller
 import (
 	"errors"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -69,17 +70,25 @@ func (h *handler) ListAllMedicalRecords(c *gin.Context) {
 		h.abortWithError(c, http.StatusBadRequest, errors.New("missing user param"))
 	}
 
-	var medicalRecordTypeFilter *model.MedicalRecordType
-	filter := c.Query("filter")
-	if strings.TrimSpace(filter) != "" {
-		filterType := model.MedicalRecordType(filter)
-		if err := filterType.Validate(); err != nil {
+	filter := model.NewFilter()
+	filterType := c.Query("filter")
+	if strings.TrimSpace(filterType) != "" {
+		if err := model.MedicalRecordType(filterType).Validate(); err != nil {
 			h.abortWithError(c, http.StatusBadRequest, errors.New("filter invalid"))
 		}
-		medicalRecordTypeFilter = &filterType
+		filter.Fields["type"] = filterType
 	}
 
-	records, err := h.historyService.GetAll(userId, medicalRecordTypeFilter)
+	size := c.Query("size")
+	if strings.TrimSpace(size) != "" {
+		intSize, err := strconv.Atoi(size)
+		if err != nil {
+			h.abortWithError(c, http.StatusBadRequest, errors.New("size invalid"))
+		}
+		filter.Size = intSize
+	}
+
+	records, err := h.historyService.GetAll(userId, filter)
 	if err != nil {
 		h.abortWithError(c, http.StatusInternalServerError, err)
 	}
