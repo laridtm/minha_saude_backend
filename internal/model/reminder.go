@@ -14,7 +14,7 @@ const (
 type Reminder struct {
 	ID     string       `json:"id" bson:"_id"`
 	Name   string       `json:"name"`
-	Hour   string       `json:"hour"`
+	Time   string       `json:"time"`
 	UserId string       `json:"-"`
 	Type   ReminderType `json:"type"`
 }
