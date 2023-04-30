@@ -25,7 +25,9 @@ func (ps *ProfileService) CreateProfile(profile model.Profile) error {
 
 	existedProfile, err := ps.repository.Find(profile.CPF)
 	if err != nil {
-		return err
+		if err.Error() != "profile does not exist" {
+			return err
+		}
 	}
 
 	if existedProfile != nil {
