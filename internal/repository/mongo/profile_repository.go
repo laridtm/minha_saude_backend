@@ -2,6 +2,7 @@ package mongo
 
 import (
 	"context"
+	"errors"
 	"log"
 
 	"github.com/laridtm/minha_saude/internal/model"
@@ -49,7 +50,7 @@ func (pr *ProfileRepository) Find(CPF string) (*model.Profile, error) {
 	}
 
 	if cursor.RemainingBatchLength() == 0 {
-		return nil, nil
+		return nil, errors.New("profile does not exist")
 	}
 
 	if cursor.Next(context.Background()) {

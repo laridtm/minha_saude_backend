@@ -38,6 +38,10 @@ func (h *handler) GetProfile(c *gin.Context) {
 
 	profile, err := h.profileService.GetProfile(userId)
 	if err != nil {
+		if err.Error() == "profile does not exist" {
+			h.abortWithError(c, http.StatusNotFound, err)
+			return
+		}
 		h.abortWithError(c, http.StatusInternalServerError, err)
 	}
 
