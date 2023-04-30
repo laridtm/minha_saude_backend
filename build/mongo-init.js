@@ -3,6 +3,7 @@ db = new Mongo().getDB("minha_saude");
 db.profile.insertMany([
     {
         "_id": "643ad8a8259c06d923b5c2ad",
+        "gender": "Feminino",
         "fullName": "Larissa Diniz Martins",
         "birthDate": "20/08/1997",
         "cpf": "00897314921",

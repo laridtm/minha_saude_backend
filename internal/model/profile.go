@@ -2,6 +2,7 @@ package model
 
 type Profile struct {
 	FullName       string `json:"fullName" bson:"fullName"`
+	Gender         string `json:"gender" bson:"gender"`
 	BirthDate      string `json:"birthDate" bson:"birthDate"`
 	CPF            string `json:"cpf" bson:"cpf"`
 	PhoneNumber    string `json:"phoneNumber" bson:"phoneNumber"`
