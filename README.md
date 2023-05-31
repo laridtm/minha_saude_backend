@@ -1,6 +1,12 @@
 # Minha saúde - Backend
 
-Backend escrito em Go para o projeto mobile Minha saúde
+Backend escrito em Go para o projeto mobile Minha Saúde.
+Trata-se de um aplicativo de gerenciamento de saúde pessoal para o Trabalho de Conclusão de Curso Sistemas de Informação - Universidade do Sul de Santa Catarina/ UNISUL.
+
+## Minha saúde - Frontend Mobile iOS
+
+Frontend escrito em Swift para o projeto neste link: 
+https://github.com/laridtm/minha_saude
 
 ## Getting Started
 
