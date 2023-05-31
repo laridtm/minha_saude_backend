@@ -1,37 +1,56 @@
 # Minha saúde - Backend
 
-Backend escrito em Go para o projeto mobile Minha Saúde.
-Trata-se de um aplicativo de gerenciamento de saúde pessoal para o Trabalho de Conclusão de Curso Sistemas de Informação - Universidade do Sul de Santa Catarina/ UNISUL.
+Backend written in Go for the Minha Saúde mobile project.
+
+It is a personal health management application for the `Trabalho de Conclusão de Curso Sistemas de Informação - Universidade do Sul de Santa Catarina/ UNISUL`.
 
 ## Minha saúde - Frontend Mobile iOS
 
-Frontend escrito em Swift para o projeto neste [link](https://github.com/laridtm/minha_saude)
+Frontend written in Swift for the project in this [link](https://github.com/laridtm/minha_saude)
 
-## Getting Started
+### Architecture
 
-Primeiro precisamos baixar todas as dependências do projeto que estão descritas no arquivo [go.mod](go.mod). Para isso basta executar o comando
+The main responsibility of the project is to serve a RESTful interface so that the mobile service can communicate with the server. This responsibility is divided between four main layers:
+
+**Model**: In this layer we have the definition of the structures of entities that are used in the project.
+
+**Controller**: The layer that receives HTTP requests and converts them to a known structure within the project (previously defined in the Model layer).
+
+**Service**: Layer that contains the business logic of the actions received in the control layer, such as validating whether the model received by the HTTP request is coherent.
+
+**Repository**: Layer responsible for assembling all queries in the Mongo DB database.
+
+![Captura de Tela 2023-05-31 às 17 19 31](https://github.com/laridtm/minha_saude_backend/assets/55598696/79b737e7-ef1e-4cee-92b9-88070cc0e013)
+
+### Getting Started
+
+First we need to download all the project dependencies that are described in the file[go.mod](go.mod). To do this, just run the command
 
 ```sh
 $ go mod
 ```
 
-Feito isso, precisamos subir as dependências de infraestrutura do projeto, que no momento é apenas o MongoDB:
+Once that's done, we need to upload the project's infrastructure dependencies, which at the moment is just MongoDB:
 
 ```sh
 $ make env
 ```
 
-Esse comando acima, irá subir um MongoDB na versão 5.0 e irá incluir algumas informações já de início para fins de teste. Essas informações podem ser encontradas [aqui](build/mongo-init.js).
+This command above will upload a MongoDB in version 5.0 and will include some initial information for testing purposes. This information can be found [here](build/mongo-init.js).
 
-Para startar o projeto, você pode executar o comando abaixo. E para parar, simplemente pressione `Ctrl + C` no seu teclado.
+To start the project, you can run the command below. And to stop it, simply press `Ctrl + C` on your keyboard.
 
 ```sh
 $ make start
 ```
 
-Assim como temos um comando para subir as dependências de infraestrutura do projeto, também existe um comando para remove-las:
+Just as we have a command to upload the project's infrastructure dependencies, there is also a command to remove them:
 
 ```sh
 $ make env-stop
 ```
 
+### Author
+
+| [![Larissa](https://avatars.githubusercontent.com/u/55598696?v=4&s=80)](https://github.com/laridtm/) | [@laridtm](https://github.com/laridtm/) |
+| ------ | ------ |
