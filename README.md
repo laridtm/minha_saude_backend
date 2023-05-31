@@ -5,8 +5,7 @@ Trata-se de um aplicativo de gerenciamento de saúde pessoal para o Trabalho de 
 
 ## Minha saúde - Frontend Mobile iOS
 
-Frontend escrito em Swift para o projeto neste link: 
-https://github.com/laridtm/minha_saude
+Frontend escrito em Swift para o projeto neste [link](https://github.com/laridtm/minha_saude)
 
 ## Getting Started
 
